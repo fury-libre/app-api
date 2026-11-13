@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Personajes de Rick and Morty</title>
+  <style>
+    #personajes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+.tarjeta {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+.tarjeta img {
+  width: 100%;
+  border-radius: 8px;
+}
+  </style>
+</head>
+<body>
+  <h1>Personajes</h1>
+  <div id="personajes"></div>
+  <script>
+    // aquí va tu JavaScript
+async function cargar() {
+  const contenedor = document.getElementById("personajes");
+  try {
+    const res = await fetch("https://rickandmortyapi.com/api/character");
+    const datos = await res.json();
+
+    datos.results.forEach(function (personaje) {
+  const tarjeta = document.createElement("div");
+  tarjeta.className = "tarjeta";
+
+  const img = document.createElement("img");
+  img.src = personaje.image;
+
+  const p = document.createElement("p");
+  p.textContent = personaje.name;
+
+  tarjeta.appendChild(img);
+  tarjeta.appendChild(p);
+  contenedor.appendChild(tarjeta);
+ });
+  } catch (error) {
+    // aquí muestras un mensaje, por ejemplo en el contenedor
+  }
+  }
+cargar();
+
+
+  </script>
+</body>
+</html>
